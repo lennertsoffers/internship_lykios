@@ -1,4 +1,4 @@
-# Technical documentation
+# Lykiosbay - Technical documentation
 
 ## Lykiosbay services
 
