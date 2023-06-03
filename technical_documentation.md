@@ -57,7 +57,7 @@ Making bids is a critical point in our application so this process needs to be v
     - Opening price of the auction if no bids were made yet
     - Current highest bid + the minimum raise of the auction
 
-So let’s say all these prerequisites are met, then we are done no?. Well, not exactly. What would happen if two users made a bid at exactly the same moment? Both validations could be met before the changes were written to the database, even if the second bid is lower than the first bid that will be written to the database. This is different than the expected behaviour of course.
+So let’s say all these prerequisites are met, then we are done no? Well, not exactly. What would happen if two users made a bid at exactly the same moment? Both validations could be met before the changes were written to the database, even if the second bid is lower than the first bid that will be written to the database. This is different than the expected behaviour of course.
 
 The solution we’ve found is making use of an optimistic lock on the auctions table. An optimistic lock is actually just a counter on how many writes happened to this record. This lock can now be used as a validation when updating an entity in the database.
 
@@ -109,13 +109,13 @@ The team has created some meta annotations to declare the behaviour or configura
 
 - `@SpringBootTestNoSecurity`
 
-    Extension of the `@SpringBootTest` that creates a context like the application would normally do except that the security will be turned off.
+    Extension of the `@SpringBootTest` that creates a context like the application would normally do, except that the security will be turned off.
     
     Activates the `test` profile.
 
 - `@JpaDatabaseTest`
 
-    Extension of the `@DataJpaTest` but configures the test database for you.
+    Extension of the `@DataJpaTest`, but configures the test database for you.
     
     Activates the `test` profile.
 
@@ -145,7 +145,7 @@ Lykiosbay ui is a standalone React application made with Typescript. It uses the
 | --- | --- |
 | React 18 | Latest React version at time of development, alternatives are Vue or Angular but the team is most experienced with React |
 | React redux | Most widely used state management library for react and easy to use |
-| Redux toolkit | Utilities to simplify common use cases inf redux and removing boilerplate code from plain redux code |
+| Redux toolkit | Utilities to simplify common use cases in redux and removing boilerplate code from plain redux code |
 | RTK Query | Extension on redux toolkit allowing you to easily fetch and cache data automatically eliminating the need to hand-write data fetching and caching logic yourself |
 | Moment.js | Simplifies parsing, validating, manipulating and displaying of dates in Javascript a great deal |
 
@@ -157,7 +157,7 @@ The ui project is built to send the least amount possible of request to the back
 
 This is achieved by the power of Redux (toolkit) and RTK Query. At the startup of the application all data is fetched from the backend and the store is populated. From now on, only modifying requests will be made to the backend. These modifying requests will always include the updated entity in the response body as documented in the API spec of the backend. The store will then be updated with the new entity of the request body. Updating the store also triggers re-renders for React so ui updates are also handled automatically.
 
-There are however some custom redux sliced apart from RTK Query. These slices are used to persist the token and user throughout multiple sessions via the localstorage.
+There are however some custom Redux sliced apart from RTK Query. These slices are used to persist the token and user throughout multiple sessions via the localstorage.
 
 #### **RTK Query abstraction**
 
@@ -317,8 +317,8 @@ Testing the ui comes down to testing that all expected elements are rendered on 
 
 #### **Unit**
 
-Most tests will be unit tests because unit tests include testing components without the use of redux. In these unit tests, all dependencies and most important redux is mocked. 
+Most tests will be unit tests because unit tests include testing components without the use of redux. In these unit tests, all dependencies and most important Redux is mocked. 
 
 #### **Integration (suffix IT)**
 
-Integration tests will run using `msw` (mock service worker). With this library, we will mock the api responses to load the data in our redux store. These mocked endpoints can be found in the `__mocks__` package. We also test user interaction like clicking buttons or entering data in input fields.
+Integration tests will run using `msw` (mock service worker). With this library, we will mock the api responses to load the data in our Redux store. These mocked endpoints can be found in the `__mocks__` package. We also test user interaction like clicking buttons or entering data in input fields.
